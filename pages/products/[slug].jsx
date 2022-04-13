@@ -7,17 +7,21 @@ import Image from "next/image";
 import { Button, Container } from "@mui/material";
 
 const Product = ({ product }) => {
+  if (!product) return null;
+
   const { name = "unknown", image, description = "unknown" } = product;
   return (
     <>
       <Link href="/products">
         <Button>Go Back</Button>
       </Link>
-      <h1>{name}</h1>
+      <h1>{name ? name : ""}</h1>
       <Container align="center">
-        {image && <Image width={100} height={100} src={urlFor(image).url()} alt="" />}
+        {image && (
+          <Image width={100} height={100} src={urlFor(image).url()} alt="" />
+        )}
       </Container>
-      <p>{description}</p>
+      <p>{description ? description : ""}</p>
     </>
   );
 };

@@ -7,6 +7,7 @@ import {
   CardContent,
   CardMedia,
   Divider,
+  Grid,
   List,
   ListItem,
   ListItemAvatar,
@@ -19,6 +20,27 @@ import React from "react";
 import client from "../../lib/client";
 import { urlFor } from "../../lib/sanity";
 
+const ProductItem = ({ name, image, slug }) => {
+  return (
+    <Grid item xs={6}>
+      <Link href={`/products/${slug.current}`}>
+        <Card>
+          <CardMedia>
+            <Image height={500} width={500} src={urlFor(image).url()} />
+          </CardMedia>
+          <CardContent>
+            <Typography variant="h6">{name}</Typography>
+          </CardContent>
+          <CardActions>
+            <Button>Add To Cart</Button>
+          </CardActions>
+          <Divider component="li" />
+        </Card>
+      </Link>
+    </Grid>
+  );
+};
+
 const ProductList = ({ allProducts }) => {
   return (
     <div>
@@ -26,38 +48,15 @@ const ProductList = ({ allProducts }) => {
         <Button>Go Home</Button>
       </Link>
       <Typography variant="h2">List</Typography>
-      <List>
+      <Grid container spacing={1}>
         {allProducts.length > 0 &&
           allProducts.map(
             ({ _id, name = "", slug = "", image }) =>
               slug && (
-                <>
-                  <Link
-                    key={_id}
-                    href="/products/[slug]"
-                    as={`/products/${slug.current}`}
-                  >
-                    <Card>
-                      <CardMedia>
-                        <Image
-                          height={500}
-                          width={500}
-                          src={urlFor(image).url()}
-                        />
-                      </CardMedia>
-                      <CardContent>
-                        <Typography variant="h6">{name}</Typography>
-                      </CardContent>
-                      <CardActions>
-                        <Button>Add To Cart</Button>
-                      </CardActions>
-                    </Card>
-                  </Link>
-                  <Divider component="li" />
-                </>
+                <ProductItem key={_id} name={name} slug={slug} image={image} />
               )
           )}
-      </List>
+      </Grid>
     </div>
   );
 };
