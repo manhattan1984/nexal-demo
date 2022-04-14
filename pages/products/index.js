@@ -29,7 +29,9 @@ const ProductItem = ({ name, image, slug }) => {
             <Image height={500} width={500} src={urlFor(image).url()} />
           </CardMedia>
           <CardContent>
-            <Typography variant="h6">{name}</Typography>
+            <Typography color="text.primary" variant="h6">
+              {name}
+            </Typography>
           </CardContent>
           <CardActions>
             <Button>Add To Cart</Button>

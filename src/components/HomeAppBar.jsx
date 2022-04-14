@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   AppBar,
   Box,
@@ -10,16 +10,22 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import Logo from "../../assets/logo.png";
+import Logo from "../../public/logo-yellow.jpeg";
 import Link from "next/link";
 import Image from "next/image";
 
 const HomeAppBar = () => {
-  const pages = ["Home"];
-  function toggleMenu() {}
+  const pages = [
+    { page: "Home", link: "/" },
+    { page: "Products", link: "/products" },
+  ];
+  const [toggle, setToggle] = useState(false);
+  function toggleMenu() {
+    setToggle(!toggle);
+  }
   return (
     <>
-      <AppBar position="static">
+      <AppBar position="static" sx={{ bgcolor: "white" }}>
         <Container maxWidth="xl">
           <Toolbar disableGutters>
             <Grid container>
@@ -32,9 +38,11 @@ const HomeAppBar = () => {
                 display={{ xs: "flex", md: "none" }}
                 justifyContent="flex-end"
               >
-                <IconButton size="large">
-                  <ShoppingCartIcon />
-                </IconButton>
+                <Link href="/products">
+                  <IconButton size="large">
+                    <ShoppingCartIcon />
+                  </IconButton>
+                </Link>
                 <IconButton size="large" onClick={toggleMenu}>
                   <MenuIcon />
                 </IconButton>
@@ -55,6 +63,29 @@ const HomeAppBar = () => {
           </Toolbar>
         </Container>
       </AppBar>
+      {toggle ? (
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+          }}
+          justifyContent="center"
+          alignItems="center"
+        >
+          {pages.map(({ page, link }) => (
+            <Link href={link}>
+              <Button
+                color="secondary"
+                key={page}
+                sx={{ width: "100%" }}
+                onClick={toggleMenu}
+              >
+                {page}
+              </Button>
+            </Link>
+          ))}
+        </Box>
+      ) : null}
     </>
   );
 };

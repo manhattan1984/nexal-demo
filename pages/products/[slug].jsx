@@ -4,7 +4,7 @@ import client from "../../lib/client";
 import Link from "next/link";
 import { urlFor } from "../../lib/sanity";
 import Image from "next/image";
-import { Button, Container } from "@mui/material";
+import { Box, Button, Container, Typography } from "@mui/material";
 
 const Product = ({ product }) => {
   if (!product) return null;
@@ -18,10 +18,12 @@ const Product = ({ product }) => {
       <h1>{name ? name : ""}</h1>
       <Container align="center">
         {image && (
-          <Image width={100} height={100} src={urlFor(image).url()} alt="" />
+          <Box>
+            <Image height={400} width={400} src={urlFor(image).url()} alt="" />
+          </Box>
         )}
       </Container>
-      <p>{description ? description : ""}</p>
+      <Typography variant="body1">{description ? description : ""}</Typography>
     </>
   );
 };

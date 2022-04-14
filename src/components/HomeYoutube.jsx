@@ -1,5 +1,6 @@
 import React from "react";
 import YouTube from "react-youtube";
+import { Container } from "@mui/material";
 
 const HomeYoutube = () => {
   const onPlayerReady = (event) => {
@@ -7,13 +8,18 @@ const HomeYoutube = () => {
   };
 
   const opts = {
-    height: "390",
-    width: "640",
+    height: "360",
+    width: "360",
     playerVars: {
       autoPlay: 1,
     },
   };
-  return <YouTube videoId="gEzgU7qv44w" opts={opts} onReady={onPlayerReady} />;
+
+  return (
+    <Container align="center" maxWidth="md">
+      <YouTube videoId="gEzgU7qv44w" opts={opts} onReady={onPlayerReady} />;
+    </Container>
+  );
 };
 
 export default HomeYoutube;
